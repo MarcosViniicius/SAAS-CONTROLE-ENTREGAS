@@ -1,0 +1,369 @@
+/* Estilos gerais */
+body {
+  background-color: #f8f9fa;
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Wrapper flexível */
+.wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  background: #1a56db;
+  border-right: 1px solid #e0e0e0;
+  transition: left 0.3s;
+  z-index: 1001;
+  position: relative;
+  color: #fff;
+}
+
+#sidebarCollapse {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#sidebarCollapse:active {
+  background: #1546bd;
+}
+
+.sidebar .sidebar-header {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.08);
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  color: #fff;
+}
+
+.sidebar ul.components {
+  padding: 20px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar ul li a {
+  padding: 12px 24px;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 4px 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active > a {
+  background-color: #1546bd;
+  color: #fff;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #2c4fa5;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-footer small {
+  color: #e0e0e0;
+}
+
+/* Overlay para sidebar mobile */
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1100;
+  transition: opacity 0.3s;
+}
+
+.sidebar.active ~ #sidebar-overlay {
+  display: block;
+  opacity: 1;
+}
+
+/* Conteúdo principal */
+#content {
+  width: 100%;
+  min-height: 100vh;
+  padding: 32px 24px;
+  transition: all 0.3s;
+  background: #f8f9fa;
+  box-sizing: border-box;
+}
+
+/* Cards */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  background: #fff;
+  margin-bottom: 24px;
+  padding: 24px;
+  border: none;
+}
+
+.card-header {
+  background: #f3f6fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.card-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Tabelas */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-bottom: 24px;
+}
+
+.table th,
+.table td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+.table th {
+  font-weight: 600;
+  background: #f3f6fa;
+}
+
+.table tr:hover {
+  background: #f1f5ff;
+}
+
+/* Responsividade para tabelas */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Botões */
+.btn,
+.btn-primary,
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-danger,
+.btn-outline-success {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-size: 1em;
+}
+
+.btn-primary {
+  background-color: #1a56db;
+  color: #fff;
+  border-color: #1a56db;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #1546bd;
+  border-color: #1546bd;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #adb5bd;
+  color: #495057;
+  background: #fff;
+}
+
+.btn-outline-secondary:hover {
+  background: #e9ecef;
+  color: #1a56db;
+}
+
+.btn-outline-primary {
+  border: 1px solid #1a56db;
+  color: #1a56db;
+  background: #fff;
+}
+
+.btn-outline-primary:hover {
+  background: #1a56db;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background: #fff;
+}
+
+.btn-outline-danger:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-outline-success {
+  border: 1px solid #198754;
+  color: #198754;
+  background: #fff;
+}
+
+.btn-outline-success:hover {
+  background: #198754;
+  color: #fff;
+}
+
+/* Badges */
+.badge {
+  padding: 0.35em 0.65em;
+  font-weight: 600;
+  border-radius: 12px;
+  font-size: 0.95em;
+}
+
+/* Autenticação */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Formulários */
+.form-label {
+  font-weight: 600;
+}
+
+.form-control,
+.form-select {
+  border-radius: 6px;
+  font-size: 1em;
+  padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #1a56db;
+  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.15);
+}
+
+/* Ajustes para ícones */
+.fa-fw {
+  width: 1.25em;
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  #content {
+    padding: 24px 8px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    min-width: 200px;
+    max-width: 200px;
+  }
+  #content {
+    padding: 20px 4px;
+  }
+  .card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    z-index: 1200;
+    min-width: 220px;
+    max-width: 220px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+    transition: left 0.3s;
+  }
+  .sidebar.active {
+    left: 0;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.15);
+  }
+  #sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+  #content {
+    position: relative;
+    z-index: 1;
+    padding: 12px 2px;
+    margin-left: 0;
+  }
+  .card {
+    padding: 12px;
+  }
+  .navbar .btn {
+    padding: 8px 12px;
+    font-size: 1em;
+  }
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    min-width: 100vw;
+    max-width: 100vw;
+    left: -100vw;
+  }
+  .sidebar.active {
+    left: 0;
+  }
+  #content {
+    padding: 6px 1px;
+  }
+  .card,
+  .table {
+    padding: 6px;
+  }
+  .table th,
+  .table td {
+    padding: 6px 2px;
+    font-size: 0.95em;
+  }
+  .navbar h5 {
+    font-size: 1.1em;
+  }
+}
+
+/* Scrollbar customizada para sidebar */
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #1a56db #f8f9fa;
+}
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1546bd;
+  border-radius: 4px;
+}

@@ -1,33 +1,30 @@
-# Node modules
-node_modules/
+# Ambiente Python
+venv/
+.env
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
 
-# Build output
-dist/
-build/
+# Banco de dados SQLite
+sistema_entregas.db
 
-# Vite cache
-.vite/
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDEs
+# Configurações do VSCode e IDEs
 .vscode/
 .idea/
 
-# TypeScript cache
-*.tsbuildinfo
+# Logs
+*.log
 
-# Env files
-.env
-.env.*
+# Cache do Flask
+instance/
+*.db-journal
 
-# Misc
-*.local
+# Node (caso use para front-end)
+node_modules/
+dist/
+build/
+
+# Outros arquivos do sistema
+.DS_Store
+Thumbs.db

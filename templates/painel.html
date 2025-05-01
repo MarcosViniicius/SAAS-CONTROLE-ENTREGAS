@@ -1,0 +1,155 @@
+{%  extends "base.html" %}
+
+{% block title %}Painel - Sistema de Controle de Entregas{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="mb-4">
+        <h2 class="mb-2">Bem-vindo, {{ empresa.nome }}</h2>
+        <p class="text-muted">Este é o painel de controle do seu sistema de entregas.</p>
+    </div>
+    
+    <!-- Cards com estatísticas -->
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-users text-primary fa-fw fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Entregadores</h6>
+                            <h3 class="mb-0">{{ entregadores_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-0">
+                    <a href="{{ url_for('entregadores.listar') }}" class="text-decoration-none text-primary">Ver todos</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-circle-exclamation text-warning fa-fw fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Pendentes</h6>
+                            <h3 class="mb-0">{{ entregas_pendentes }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-0">
+                    <a href="{{ url_for('entregas.listar') }}" class="text-decoration-none text-primary">Ver todas</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-orange bg-opacity-10 p-3 me-3" style="background-color: rgba(255, 165, 0, 0.1);">
+                            <i class="fas fa-truck text-orange fa-fw fa-lg" style="color: #FF8C00;"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Em Rota</h6>
+                            <h3 class="mb-0">{{ entregas_em_rota }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-0">
+                    <a href="{{ url_for('entregas.listar') }}" class="text-decoration-none text-primary">Ver todas</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-check-circle text-success fa-fw fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted mb-1">Concluídas</h6>
+                            <h3 class="mb-0">{{ entregas_concluidas }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-0">
+                    <a href="{{ url_for('entregas.historico') }}" class="text-decoration-none text-primary">Ver histórico</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Entregas recentes e imagem -->
+    <div class="row mt-5">
+        <div class="col-lg-7 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Entregas Recentes</h5>
+                </div>
+                <div class="card-body">
+                    {% if entregas_recentes %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Endereço</th>
+                                        <th>Valor</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entrega in entregas_recentes %}
+                                        <tr>
+                                            <td>#{{ entrega.id }}</td>
+                                            <td>{{ entrega.endereco }}</td>
+                                            <td>{{ entrega.valor|format_valor }}</td>
+                                            <td>
+                                                {% if entrega.status == 'Pendente' %}
+                                                    <span class="badge bg-warning text-dark">Pendente</span>
+                                                {% elif entrega.status == 'Em Rota' %}
+                                                    <span class="badge" style="background-color: #FF8C00;">Em Rota</span>
+                                                {% elif entrega.status == 'Concluída' %}
+                                                    <span class="badge bg-success">Concluída</span>
+                                                {% elif entrega.status == 'Cancelada' %}
+                                                    <span class="badge bg-danger">Cancelada</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted py-4">Nenhuma entrega registrada ainda.</p>
+                    {% endif %}
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('entregas.novo') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i> Nova Entrega
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-5 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="https://images.unsplash.com/photo-1600083691960-1a52d9945594?fit=fillmax&h=600&w=800" 
+                     class="card-img-top h-100" 
+                     alt="Entregador verificando direções" 
+                     style="object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ 

@@ -1,0 +1,115 @@
+{%  extends "base.html" %}
+
+{% block title %}Histórico de Entregas - Sistema de Controle de Entregas{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1"><i class="fas fa-clipboard-list me-2"></i> Histórico de Entregas</h2>
+            <p class="text-muted">Consulte o histórico de entregas concluídas e canceladas.</p>
+        </div>
+        
+        <a href="{{ url_for('entregas.listar') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i> Voltar para Entregas
+        </a>
+    </div>
+    
+    <!-- Filtros -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h6 class="mb-3"><i class="fas fa-filter me-2"></i> Filtros</h6>
+            
+            <form method="GET" action="{{ url_for('entregas.historico') }}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="status" value="Concluída" 
+                                       id="statusConcluida" {% if 'Concluída' in status_filtro %}checked{% endif %}>
+                                <label class="form-check-label" for="statusConcluida">
+                                    <span class="badge bg-success">Concluída</span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="status" value="Cancelada" 
+                                       id="statusCancelada" {% if 'Cancelada' in status_filtro %}checked{% endif %}>
+                                <label class="form-check-label" for="statusCancelada">
+                                    <span class="badge bg-danger">Cancelada</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        {{ form.entregador_id.label(class="form-label") }}
+                        {{ form.entregador_id(class="form-select") }}
+                    </div>
+                </div>
+                
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-search me-2"></i> Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Lista de Entregas -->
+    {% if entregas %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Endereço</th>
+                                <th>Valor</th>
+                                <th>Pagamento</th>
+                                <th>Entregador</th>
+                                <th>Status</th>
+                                <th class="text-end">Detalhes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entrega in entregas %}
+                                <tr>
+                                    <td>#{{ entrega.id }}</td>
+                                    <td>{{ entrega.endereco }}</td>
+                                    <td>{{ entrega.valor|format_valor }}</td>
+                                    <td>{{ entrega.forma_pagamento }}</td>
+                                    <td>{{ entrega.entregador.nome }}</td>
+                                    <td>
+                                        {% if entrega.status == 'Concluída' %}
+                                            <span class="badge bg-success">Concluída</span>
+                                        {% elif entrega.status == 'Cancelada' %}
+                                            <span class="badge bg-danger">Cancelada</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{{ url_for('entregas.editar', id=entrega.id) }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-file-lines"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-clipboard-list fa-4x text-muted mb-3"></i>
+                <h3>Nenhuma entrega encontrada</h3>
+                <p class="text-muted">Não há entregas que correspondam aos filtros selecionados.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+ 
